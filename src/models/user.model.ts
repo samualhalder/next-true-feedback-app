@@ -1,44 +1,54 @@
-import mongoose,{Schema,Document} from 'mongoose'
-import { messageSchma, messageType } from './message.model'
-export interface userType extends Document{
-    email:string,
-    username:string,
-    password:string,
-    verificatonCode:string,
-    verificationCodeExpire:Date,
-    isReciving:boolean,
-    message:messageType[]
-};
+import mongoose, { Schema, Document } from "mongoose";
+import { messageSchma, messageType } from "./message.model";
+export interface userType extends Document {
+  email: string;
+  username: string;
+  password: string;
+  isVarified: boolean;
+  verificatonCode: string;
+  verificationCodeExpire: Date;
+  isReciving: boolean;
+  message: messageType[];
+}
 
-const userSchema:Schema<userType>=new Schema({
-    email:{
-        type:String,
-        unique:true,
-        required:[true,"pls enter email"],
+const userSchema: Schema<userType> = new Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: [true, "pls enter email"],
     },
-    username:{
-        type:String,
-        unique:true,
-        required:[true,"pls enter username"]
+    username: {
+      type: String,
+      unique: true,
+      required: [true, "pls enter username"],
     },
-    password:{
-        type:String,
-        required:true
+    isVarified: {
+      type: Boolean,
+      default: false,
     },
-    verificatonCode:{
-        type:String,
+    password: {
+      type: String,
+      required: true,
     },
-    verificationCodeExpire:{
-        type:Date
+    verificatonCode: {
+      type: String,
     },
-    isReciving:{
-        type:Boolean,
-        required:true,
-        default:true
+    verificationCodeExpire: {
+      type: Date,
     },
-    message:[messageSchma]
-},{
-    timestamps:true
-})
-const User= (mongoose.models.User as mongoose.Model<userType> )||( mongoose.model<userType>("User",userSchema))
-export default User
+    isReciving: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    message: [messageSchma],
+  },
+  {
+    timestamps: true,
+  }
+);
+const User =
+  (mongoose.models.User as mongoose.Model<userType>) ||
+  mongoose.model<userType>("User", userSchema);
+export default User;

@@ -13,8 +13,8 @@ export async function verificationEmail({
   try {
     const { data, error } = await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
-      to: ["delivered@resend.dev"],
-      subject: "Hello world",
+      to: [email],
+      subject: "Verificatio Email for True Feedback application.",
       react: VerficationEmailTemplete({ username, validationCode: verifyCode }),
     });
   } catch (error) {
